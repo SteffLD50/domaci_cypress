@@ -1,8 +1,11 @@
 
 describe('Register page case - Negative', () => {
 
-    it('Register with blank fields', () => {
+    beforeEach(() => {
         cy.visit("/register")
+    })
+
+    it('Register with blank fields', () => {
         cy.get('#first-name').should('have.attr', 'required')
         cy.get('#first-name').should('have.attr', 'type').and('match', /text/)
         cy.get('#first-name').invoke('prop', 'validationMessage')
@@ -31,7 +34,6 @@ describe('Register page case - Negative', () => {
     })
 
     it('Register with only checkbox checked', () => {
-        cy.visit('/register')
         cy.get(':checkbox').check()
         cy.get('input:invalid').should('have.length', 5)
         cy.get('button').click()
@@ -42,7 +44,6 @@ describe('Register page case - Negative', () => {
     })
 
     it('Fill out everything except the First name', () => {
-        cy.visit('/register')
         cy.get('#last-name').type('Petrovic')
         cy.get('#email').type('nebopajo2@gmail.com')
         cy.get('#password').type('nebopajo123')
@@ -57,7 +58,6 @@ describe('Register page case - Negative', () => {
     })
 
     it('Fill out everything except the Last name', () => {
-        cy.visit('/register')
         cy.get('#first-name').type('Petar')
         cy.get('#email').type('nebopajo2@gmail.com')
         cy.get('#password').type('nebopajo123')
@@ -72,7 +72,6 @@ describe('Register page case - Negative', () => {
     })
 
     it('Fill out everything except the email', () => {
-        cy.visit('/register')
         cy.get('#first-name').type('Petar')
         cy.get('#last-name').type('Petrovic')
         cy.get('#password').type('nebopajo123')
@@ -87,7 +86,6 @@ describe('Register page case - Negative', () => {
     })
 
     it('Fill out everything except the password', () => {
-        cy.visit('/register')
         cy.get('#first-name').type('Petar')
         cy.get('#last-name').type('Petrovic')
         cy.get('#email').type('nebopajo2@gmail.com')
@@ -102,7 +100,6 @@ describe('Register page case - Negative', () => {
     })
 
     it('Fill out everything and dont confirm the password', () => {
-        cy.visit('/register')
         cy.get('#first-name').type('Petar')
         cy.get('#last-name').type('Petrovic')
         cy.get('#email').type('nebopajo2@gmail.com')
@@ -117,7 +114,6 @@ describe('Register page case - Negative', () => {
     })
 
     it('Fill out everything and dont check the checkbox', () => {
-        cy.visit('/register')
         cy.get('#first-name').type('Petar')
         cy.get('#last-name').type('Petrovic')
         cy.get('#email').type('nebopajo2@gmail.com')
@@ -131,7 +127,6 @@ describe('Register page case - Negative', () => {
     })
 
     it('Register with a non email', () => {
-        cy.visit('/register')
         cy.get('#first-name').type('Petar')
         cy.get('#last-name').type('Petrovic')
         cy.get('#email').type('nebopajo@gmaill.coooom')   // ovaj test bi trebao da padne, ali uspeva da prihvati email
@@ -146,7 +141,6 @@ describe('Register page case - Negative', () => {
     })
 
     it('Register with a non-existing email', () => {
-        cy.visit('/register')
         cy.get('#first-name').type('Petar')
         cy.get('#last-name').type('Petrovic')
         cy.get('#email').type('nebopajo7@gmail.com')   // takodje i ovaj test bi trebao da padne, ali prolazi
@@ -161,7 +155,6 @@ describe('Register page case - Negative', () => {
     })
 
     it('Register with an already registered email', () => {
-        cy.visit('/register')
         cy.get('#first-name').type('Petar')
         cy.get('#last-name').type('Petrovic')
         cy.get('#email').type('nadjlukac.test@gmail.com')
@@ -176,7 +169,6 @@ describe('Register page case - Negative', () => {
     })
 
     it('Password with 7 characters (no digit)', () => {
-        cy.visit('/register')
         cy.get('#first-name').type('Petar')
         cy.get('#last-name').type('Petrovic')
         cy.get('#email').type('nebopajo2@gmail.com')
@@ -191,7 +183,6 @@ describe('Register page case - Negative', () => {
     })
 
     it('Password with 7 characters (1 of them a digit)', () => {
-        cy.visit('/register')
         cy.get('#first-name').type('Petar')
         cy.get('#last-name').type('Petrovic')
         cy.get('#email').type('nebopajo2@gmail.com')
@@ -206,7 +197,6 @@ describe('Register page case - Negative', () => {
     })
 
     it('Password with 8 characters (no digit)', () => {
-        cy.visit('/register')
         cy.get('#first-name').type('Petar')
         cy.get('#last-name').type('Petrovic')
         cy.get('#email').type('nebopajo2@gmail.com')
