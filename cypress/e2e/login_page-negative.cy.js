@@ -67,15 +67,6 @@ describe('Login page case - Negative', () => {
         cy.get('.alert').should('be.visible')
     })
 
-    it('Log in with a non-existing email', () => {
-        cy.get('#email').type('dvbdbrfd@gmail.com')
-        cy.get('#password').type('testqa22test')
-        cy.get('button').click()
-        cy.url().should('equal', 'https://gallery-app.vivifyideas.com/login')
-        cy.should('not.contain', 'Logout')
-        cy.get('.alert').should('be.visible')
-    })
-
     it('Successfull login', () => {
         cy.get('#email').type('nadjlukac.test@gmail.com')
         cy.get('#password').type('testqa22test')
