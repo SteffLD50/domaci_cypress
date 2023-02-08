@@ -79,6 +79,15 @@ describe('Login page case - Negative', () => {
         cy.should('not.contain', 'Logout')
         cy.get('.alert').should('be.visible')
     })
+
+    it('Successfull login', () => {
+        cy.visit('/login')
+        cy.get('#email').type('nadjlukac.test@gmail.com')
+        cy.get('#password').type('testqa22test')
+        cy.get('button').click()
+        cy.get('.nav-link').should('have.length', 4)
+        cy.url().should('not.contain', 'Login')
+    })
 /*
 Jel smem ovako da uradim npr. grupu test kejseva? Odnosno da pokrijem vise test kejseva kroz jedan veci test?
 Ili moram da radim svaki posebno kako je i zapisan?
