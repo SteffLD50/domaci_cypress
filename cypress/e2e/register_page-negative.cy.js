@@ -1,5 +1,5 @@
 
-describe('Register page case - Negative', () => {
+describe('Register page case', () => {
 
     before(() => {
         cy.visit("/register")
@@ -29,14 +29,14 @@ describe('Register page case - Negative', () => {
         cy.visit("/register")
     })
 
-    it('Register with blank fields', () => {
+    it('Try to register with blank fields', () => {
         cy.get('input:invalid').should('have.length', 5)
         cy.get('button').click()
         cy.url().should('equal', 'https://gallery-app.vivifyideas.com/register')
         cy.should('not.contain', 'Logout')
     })
 
-    it('Register with only checkbox checked', () => {
+    it('Try to register with only checkbox checked', () => {
         cy.get(':checkbox').check()
         cy.get('input:invalid').should('have.length', 5)
         cy.get('button').click()
@@ -46,7 +46,7 @@ describe('Register page case - Negative', () => {
             .should('equal', "Please fill out this field.")
     })
 
-    it('Fill out everything except the First name', () => {
+    it('Try to register with without the First name', () => {
         cy.get('#last-name').type('Petrovic')
         cy.get('#email').type('nebopajo2@gmail.com')
         cy.get('#password').type('nebopajo123')
@@ -60,7 +60,7 @@ describe('Register page case - Negative', () => {
             .should('equal', "Please fill out this field.")
     })
 
-    it('Fill out everything except the Last name', () => {
+    it('Try to register with without the Last name', () => {
         cy.get('#first-name').type('Petar')
         cy.get('#email').type('nebopajo2@gmail.com')
         cy.get('#password').type('nebopajo123')
@@ -74,7 +74,7 @@ describe('Register page case - Negative', () => {
             .should('equal', "Please fill out this field.")
     })
 
-    it('Fill out everything except the email', () => {
+    it('Try to register with without the email', () => {
         cy.get('#first-name').type('Petar')
         cy.get('#last-name').type('Petrovic')
         cy.get('#password').type('nebopajo123')
@@ -88,7 +88,7 @@ describe('Register page case - Negative', () => {
             .should('equal', "Please fill out this field.")
     })
 
-    it('Fill out everything except the password', () => {
+    it('Try to register with without the password', () => {
         cy.get('#first-name').type('Petar')
         cy.get('#last-name').type('Petrovic')
         cy.get('#email').type('nebopajo2@gmail.com')
@@ -102,7 +102,7 @@ describe('Register page case - Negative', () => {
             .should('equal', "Please fill out this field.")
     })
 
-    it('Fill out everything and dont confirm the password', () => {
+    it('Try to register without confirming the password', () => {
         cy.get('#first-name').type('Petar')
         cy.get('#last-name').type('Petrovic')
         cy.get('#email').type('nebopajo2@gmail.com')
@@ -116,7 +116,7 @@ describe('Register page case - Negative', () => {
             .should('equal', "Please fill out this field.")
     })
 
-    it('Fill out everything and dont check the checkbox', () => {
+    it('Try to register without checking the checkbox', () => {
         cy.get('#first-name').type('Petar')
         cy.get('#last-name').type('Petrovic')
         cy.get('#email').type('nebopajo2@gmail.com')
@@ -129,10 +129,10 @@ describe('Register page case - Negative', () => {
         cy.get('.alert').should('be.visible')
     })
 
-    it('Register with a non email', () => {
+    it('Try to register with invalid email', () => {
         cy.get('#first-name').type('Petar')
         cy.get('#last-name').type('Petrovic')
-        cy.get('#email').type('nebopajo@gmaill.coooom')   // ovaj test bi trebao da padne, ali uspeva da prihvati email
+        cy.get('#email').type('nebopajo@gmaill.coooom')
         cy.get('#password').type('nebopajo123')
         cy.get('#password-confirmation').type('nebopajo123')
         cy.get(':checkbox').check()
@@ -143,11 +143,11 @@ describe('Register page case - Negative', () => {
         cy.get('.alert').should('be.visible')
     })
 
-    it('Register with a non-existing email', () => {
+    it('Try to register with a non-existing email', () => {
         cy.get('#first-name').type('Petar')
         cy.get('#last-name').type('Petrovic')
-        cy.get('#email').type('nebopajo7@gmail.com')   // takodje i ovaj test bi trebao da padne, ali prolazi
-        cy.get('#password').type('nebopajo123')       // kako uopste moze da se zna da je email nepostojeci?
+        cy.get('#email').type('nebopajo7@gmail.com')
+        cy.get('#password').type('nebopajo123')
         cy.get('#password-confirmation').type('nebopajo123')
         cy.get(':checkbox').check()
         cy.get('button').click()
@@ -157,7 +157,7 @@ describe('Register page case - Negative', () => {
         cy.get('.alert').should('be.visible')
     })
 
-    it('Register with an already registered email', () => {
+    it('Try to register with an already registered email', () => {
         cy.get('#first-name').type('Petar')
         cy.get('#last-name').type('Petrovic')
         cy.get('#email').type('nadjlukac.test@gmail.com')
