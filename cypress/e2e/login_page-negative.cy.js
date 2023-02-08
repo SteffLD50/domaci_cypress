@@ -1,20 +1,24 @@
 
 describe('Login page case - Negative', () => {
 
+    before(() => {
+        cy.visit("/login")
+        cy.get('#email').should('have.attr', 'required')
+        cy.get('#email').should('have.attr', 'type').and('match', /email/)
+        cy.get('#email').invoke('prop', 'validationMessage')
+            .should('equal', "Please fill out this field.")
+        cy.get('#password').should('have.attr', 'required')
+        cy.get('#password').should('have.attr', 'type').and('match', /password/)
+        cy.get('#password').invoke('prop', 'validationMessage')
+            .should('equal', "Please fill out this field.")
+    })
+
     beforeEach(() => {
         cy.visit("/login")
     })
 
     it('Log in with blank fields', () => {
-        cy.get('#email').should('have.attr', 'required') // provera da li je polje obavezno
-        cy.get('#email').should('have.attr', 'type').and('match', /email/)
-        cy.get('#email').invoke('prop', 'validationMessage')
-            .should('equal', "Please fill out this field.")
-        cy.get('#password').should('have.attr', 'required') // proveru obaveznih polja sam radio samo u ovom testu, jel mora u svakom?
-        cy.get('#password').should('have.attr', 'type').and('match', /password/)  // testiram da li su skriveni karakteri kada kucam
-        cy.get('#password').invoke('prop', 'validationMessage')
-            .should('equal', "Please fill out this field.")
-        cy.get('input:invalid').should('have.length', 2)  // ovo znaci da do ovoga trenutka postoje 2 polja koja nisu dobro popunjena
+        cy.get('input:invalid').should('have.length', 2)
         cy.get('button').click()
         cy.url().should('equal', 'https://gallery-app.vivifyideas.com/login')
         cy.should('not.contain', 'Logout')
