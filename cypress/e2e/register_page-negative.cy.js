@@ -1,4 +1,7 @@
 
+let randomEmail = "nebopajo" + Math.floor(Math.random() * 1000) + "@gmail.com"
+let randomInvalidEmail = "nebopajo" + Math.floor(Math.random() * 1000) + "@gmaill.cooom"
+
 describe('Register page case', () => {
 
     before(() => {
@@ -132,7 +135,7 @@ describe('Register page case', () => {
     it('Try to register with invalid email', () => {
         cy.get('#first-name').type('Petar')
         cy.get('#last-name').type('Petrovic')
-        cy.get('#email').type('nebopajo@gmaill.coooom')
+        cy.get('#email').type(randomInvalidEmail)
         cy.get('#password').type('nebopajo123')
         cy.get('#password-confirmation').type('nebopajo123')
         cy.get(':checkbox').check()
@@ -202,7 +205,7 @@ describe('Register page case', () => {
     it('Successfull registration', () => {
         cy.get('#first-name').type('Petar')
         cy.get('#last-name').type('Petrovic')
-        cy.get('#email').type('nebopajo1@gmail.com')
+        cy.get('#email').type(randomEmail)
         cy.get('#password').type('nebopajo123')
         cy.get('#password-confirmation').type('nebopajo123')
         cy.get(':checkbox').check()
