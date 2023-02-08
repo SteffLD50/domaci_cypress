@@ -161,6 +161,8 @@ describe('Register page case', () => {
     })
 
     it('Try to register with invalid password', () => {
+
+        cy.log('Password with 7 characters (No digit)')
         cy.get('#first-name').type('Petar')
         cy.get('#last-name').type('Petrovic')
         cy.get('#email').type('nebopajo2@gmail.com')
@@ -173,6 +175,7 @@ describe('Register page case', () => {
         cy.url().should('equal', 'https://gallery-app.vivifyideas.com/register')
         cy.get('.alert').should('be.visible')
 
+        cy.log('Password with 7 characters (1 digit)')
         cy.get('#password').clear()
         cy.get('#password').type('nebopa1')
         cy.get('#password-confirmation').clear()
@@ -183,6 +186,7 @@ describe('Register page case', () => {
         cy.url().should('equal', 'https://gallery-app.vivifyideas.com/register')
         cy.get('.alert').should('be.visible')
 
+        cy.log('Password with 8 characters (No digit)')
         cy.get('#password').clear()
         cy.get('#password').type('nebopajo')
         cy.get('#password-confirmation').clear()
