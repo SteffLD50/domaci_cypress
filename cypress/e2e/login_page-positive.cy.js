@@ -38,5 +38,4 @@ describe('Login page case - Positive', () => {
         cy.url().should('not.contain', '/login')
         cy.get('.nav-link').eq(3).click()  // Log out
     })
-
 })
