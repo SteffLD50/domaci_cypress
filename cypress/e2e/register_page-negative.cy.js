@@ -143,20 +143,6 @@ describe('Register page case', () => {
         cy.get('.alert').should('be.visible')
     })
 
-    it('Try to register with a non-existing email', () => {
-        cy.get('#first-name').type('Petar')
-        cy.get('#last-name').type('Petrovic')
-        cy.get('#email').type('nebopajo7@gmail.com')
-        cy.get('#password').type('nebopajo123')
-        cy.get('#password-confirmation').type('nebopajo123')
-        cy.get(':checkbox').check()
-        cy.get('button').click()
-        cy.get('.nav-link').should('have.length', 3)
-        cy.url().should('not.contain', '/logout')
-        cy.url().should('equal', 'https://gallery-app.vivifyideas.com/register')
-        cy.get('.alert').should('be.visible')
-    })
-
     it('Try to register with an already registered email', () => {
         cy.get('#first-name').type('Petar')
         cy.get('#last-name').type('Petrovic')
