@@ -1,11 +1,8 @@
 
 describe('Register page case - Negative', () => {
 
-    beforeEach(() => {
+    before(() => {
         cy.visit("/register")
-    })
-
-    it('Register with blank fields', () => {
         cy.get('#first-name').should('have.attr', 'required')
         cy.get('#first-name').should('have.attr', 'type').and('match', /text/)
         cy.get('#first-name').invoke('prop', 'validationMessage')
@@ -26,7 +23,13 @@ describe('Register page case - Negative', () => {
         cy.get('#password-confirmation').should('have.attr', 'type').and('match', /password/)
         cy.get('#password-confirmation').invoke('prop', 'validationMessage')
             .should('equal', "Please fill out this field.")
-    //    cy.get(':checkbox').should('have.attr', 'required')   jel checkbox automatski required, pa ne moram ovo da pisem?
+    })
+
+    beforeEach(() => {
+        cy.visit("/register")
+    })
+
+    it('Register with blank fields', () => {
         cy.get('input:invalid').should('have.length', 5)
         cy.get('button').click()
         cy.url().should('equal', 'https://gallery-app.vivifyideas.com/register')
