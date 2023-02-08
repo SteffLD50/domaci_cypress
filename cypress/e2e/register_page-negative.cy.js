@@ -209,4 +209,17 @@ describe('Register page case - Negative', () => {
         cy.url().should('equal', 'https://gallery-app.vivifyideas.com/register')
         cy.get('.alert').should('be.visible')
     })
+
+    it('Successfull registration', () => {
+        cy.get('#first-name').type('Petar')
+        cy.get('#last-name').type('Petrovic')
+        cy.get('#email').type('nebopajo1@gmail.com')
+        cy.get('#password').type('nebopajo123')
+        cy.get('#password-confirmation').type('nebopajo123')
+        cy.get(':checkbox').check()
+        cy.get('button').click()
+        cy.get('.nav-link').should('have.length', 4)
+        cy.url().should('not.contain', '/login')
+        cy.url().should('equal', 'https://gallery-app.vivifyideas.com/')
+    })
 })
