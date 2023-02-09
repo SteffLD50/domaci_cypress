@@ -1,0 +1,19 @@
+{
+  "register": {
+    "firstName": "#first-name",
+    "lastName": "#last-name",
+    "passConfirmInput": "#password-confirmation",
+    "tosCheckbox": ":checkbox"
+  },
+
+  "commonFormElements": {
+    "emailInput": "#email",
+    "passwordInput": "#password",
+    "submitButton": "button"
+  },
+
+  "navbar": {
+    "loginButton": "a[href='/login']",
+    "registerButton": "a[href='/register']"
+  }
+}
