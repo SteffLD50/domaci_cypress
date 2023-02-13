@@ -2,14 +2,16 @@
 
 import { navBar } from "../page_objects/navBar";
 import { registerPage } from "../page_objects/registerPage";
+import { faker } from "@faker-js/faker";
 
 describe("Register test", () => {
     let userData = {
-        firstName: "Stefan",
-        lastName: "Nadjlukac",
-        email: "nadjlukac.test@gmail.com",
-        password: "testqa22test",
-        shortPassword: "pass",
+        firstName: faker.name.firstName(),
+        lastName: faker.name.lastName(),
+        email: faker.internet.email(),
+        password: `${faker.lorem.word(8)}1`,
+        shortPassword: `${faker.lorem.word(3)}1`,
+        passwordWithoutNumber: `${faker.lorem.word(8)}`,
         invalidEmail: "testmail.com",
     };
 

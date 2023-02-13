@@ -1,7 +1,10 @@
+/// reference types="Cypress" />
+
 import { loginPage } from "../page_objects/loginPage";
 import { createGalleryPage } from "../page_objects/createGalleryPage";
 import { faker } from "@faker-js/faker";
 import { navBar } from "../page_objects/navBar";
+import { allGalleriesPage } from "../page_objects/allGalleries";
 
 const galleryInputs = {
     randomTitle: faker.music.songName(),
@@ -18,10 +21,13 @@ const credentials = {
 
 describe("Create Gallery tests", () => {
     beforeEach("Log in and go to the 'Create Gallery' page", () => {
-        cy.visit("/");
-        navBar.loginLink.click();
+        cy.visit("/login");
         loginPage.login(credentials.email, credentials.password);
+        cy.url().should("not.include", "/login");
         navBar.createGalleryLink.click();
+        createGalleryPage.createGalleryHeading
+            .should("be.visible")
+            .and("have.text", "Create Gallery");
     });
 
     // vidim da ne mogu da izostavim argument u funkciji "createGallery()"

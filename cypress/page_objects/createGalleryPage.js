@@ -1,4 +1,8 @@
 class CreateGalleryPage {
+    get createGalleryHeading() {
+        return cy.get("h1");
+    }
+
     get titleInput() {
         return cy.get("#title");
     }
@@ -8,7 +12,15 @@ class CreateGalleryPage {
     }
 
     get addImageBtn() {
-        return cy.get("button").contains("Add image");
+        return cy.get("button").eq(-3);
+    }
+
+    get createGalleryUpBtn() {
+        return this.imageUrlInput.find("button").first();
+    }
+
+    get createGalleryDownBtn() {
+        return this.imageUrlInput.find("button").last();
     }
 
     get deleteImageBtn1() {
@@ -60,7 +72,7 @@ class CreateGalleryPage {
     }
 
     get submitBtn() {
-        return cy.get("button[type='submit']").eq(0);
+        return cy.get("button").eq(-1);
     }
 
     get cancelBtn() {
