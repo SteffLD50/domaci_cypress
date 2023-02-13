@@ -14,6 +14,8 @@
 
   "navbar": {
     "loginButton": "a[href='/login']",
-    "registerButton": "a[href='/register']"
+    "registerButton": "a[href='/register']",
+    "allGalleriesButton": "a[href='/']",
+    "createGalleryButton": "a[href='/create']"
   }
 }

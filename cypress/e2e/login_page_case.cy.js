@@ -50,9 +50,6 @@ describe("Login page case", () => {
 
   it("Try to log in without password", () => {
     cy.get(locators.commonFormElements.emailInput).type(userData.email);
-    //    cy.get(locators.commonFormElements.passwordInput)
-    //      .invoke("prop", "validationMessage")
-    //      .should("equal", "Please fill out this field.");
     cy.get("input:invalid").should("have.length", 1);
     cy.get(locators.commonFormElements.submitButton).click();
     cy.url().should("equal", "https://gallery-app.vivifyideas.com/login");

@@ -1,8 +1,5 @@
 class RegisterPage {
-  get registerLink() {
-    return cy.get("a[href='/register']");
-  }
-
+  
   get firstNameInput() {
     return cy.get("#first-name");
   }

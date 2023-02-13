@@ -1,6 +1,7 @@
 /// <reference types="Cypress" />
 
 import { loginPage } from "../page_objects/loginPage";
+import { navBar } from "../page_objects/navBar";
 
 const credentials = {
   email: "nadjlukac.test@gmail.com",
@@ -8,9 +9,9 @@ const credentials = {
 };
 
 describe("login tests", () => {
-  before("visit app and click the login link", () => {
+  beforeEach("visit app and click the login link", () => {
     cy.visit("/");
-    loginPage.loginLink.click();
+    navBar.loginLink.click();
   });
 
   it("login with valid credentials", () => {

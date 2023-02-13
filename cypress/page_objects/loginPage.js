@@ -1,8 +1,5 @@
 class LoginPage {
-  get loginLink() {
-    return cy.get("a[href='/login']");
-  }
-
+  
   get emailInput() {
     return cy.get("#email");
   }

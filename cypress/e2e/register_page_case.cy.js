@@ -56,9 +56,6 @@ it("Try to register with only checkbox checked", () => {
   cy.get("button").click();
   cy.url().should("equal", "https://gallery-app.vivifyideas.com/register");
   cy.should("not.contain", "Logout");
-  //    cy.get("#first-name")
-  //    .invoke("prop", "validationMessage")
-  //  .should("equal", "Please fill out this field.");
 });
 
 it("Try to register with without the First name", () => {
@@ -71,9 +68,6 @@ it("Try to register with without the First name", () => {
   cy.get(".nav-link").should("have.length", 3);
   cy.url().should("not.contain", "/logout");
   cy.url().should("equal", "https://gallery-app.vivifyideas.com/register");
-  //    cy.get("#first-name")
-  //    .invoke("prop", "validationMessage")
-  //  .should("equal", "Please fill out this field.");
 });
 
 it("Try to register with without the Last name", () => {
@@ -86,9 +80,6 @@ it("Try to register with without the Last name", () => {
   cy.get(".nav-link").should("have.length", 3);
   cy.url().should("not.contain", "/logout");
   cy.url().should("equal", "https://gallery-app.vivifyideas.com/register");
-  //   cy.get("#last-name")
-  //   .invoke("prop", "validationMessage")
-  //  .should("equal", "Please fill out this field.");
 });
 
 it("Try to register with without the email", () => {
@@ -101,9 +92,6 @@ it("Try to register with without the email", () => {
   cy.get(".nav-link").should("have.length", 3);
   cy.url().should("not.contain", "/logout");
   cy.url().should("equal", "https://gallery-app.vivifyideas.com/register");
-  //    cy.get("#email")
-  //    .invoke("prop", "validationMessage")
-  //  .should("equal", "Please fill out this field.");
 });
 
 it("Try to register with without the password", () => {
@@ -116,9 +104,6 @@ it("Try to register with without the password", () => {
   cy.get(".nav-link").should("have.length", 3);
   cy.url().should("not.contain", "/logout");
   cy.url().should("equal", "https://gallery-app.vivifyideas.com/register");
-  //    cy.get("#password")
-  //      .invoke("prop", "validationMessage")
-  //      .should("equal", "Please fill out this field.");
 });
 
 it("Try to register without confirming the password", () => {
@@ -131,9 +116,6 @@ it("Try to register without confirming the password", () => {
   cy.get(".nav-link").should("have.length", 3);
   cy.url().should("not.contain", "/logout");
   cy.url().should("equal", "https://gallery-app.vivifyideas.com/register");
-  //   cy.get("#password-confirmation")
-  //   .invoke("prop", "validationMessage")
-  // .should("equal", "Please fill out this field.");
 });
 
 it("Try to register without checking the checkbox", () => {

@@ -1,5 +1,6 @@
 /// <reference types="Cypress" />
 
+import { navBar } from "../page_objects/navBar";
 import { registerPage } from "../page_objects/registerPage";
 
 describe("Register test", () => {
@@ -14,7 +15,7 @@ describe("Register test", () => {
 
   before("visit app and click on the register link", () => {
     cy.visit("/");
-    registerPage.registerLink.click();
+    navBar.registerLink.click();
     cy.url().should("contain", "/register");
   });
 
