@@ -1,6 +1,6 @@
 class NavBar {
     get allGalleriesLink() {
-      return cy.get("a[href='/']").contains('All Galleries');
+        return cy.get("a[href='/']").contains("All Galleries");
     }
 
     get loginLink() {
@@ -10,7 +10,7 @@ class NavBar {
     get registerLink() {
         return cy.get("a[href='/register']");
     }
-  
+
     get myGalleriesLink() {
         return cy.get("a[href='/my-galleries']");
     }
@@ -20,9 +20,8 @@ class NavBar {
     }
 
     get logoutLink() {
-        return cy.get("button").contains('Logout');
+        return cy.get("button").contains("Logout");
     }
-  }
-  
-  export const navBar = new NavBar();
-  
+}
+
+export const navBar = new NavBar();

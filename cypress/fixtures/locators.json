@@ -1,21 +1,21 @@
 {
-  "register": {
-    "firstName": "#first-name",
-    "lastName": "#last-name",
-    "passConfirmInput": "#password-confirmation",
-    "tosCheckbox": ":checkbox"
-  },
+    "register": {
+        "firstName": "#first-name",
+        "lastName": "#last-name",
+        "passConfirmInput": "#password-confirmation",
+        "tosCheckbox": ":checkbox"
+    },
 
-  "commonFormElements": {
-    "emailInput": "#email",
-    "passwordInput": "#password",
-    "submitButton": "button"
-  },
+    "commonFormElements": {
+        "emailInput": "#email",
+        "passwordInput": "#password",
+        "submitButton": "button"
+    },
 
-  "navbar": {
-    "loginButton": "a[href='/login']",
-    "registerButton": "a[href='/register']",
-    "allGalleriesButton": "a[href='/']",
-    "createGalleryButton": "a[href='/create']"
-  }
+    "navbar": {
+        "loginButton": "a[href='/login']",
+        "registerButton": "a[href='/register']",
+        "allGalleriesButton": "a[href='/']",
+        "createGalleryButton": "a[href='/create']"
+    }
 }
