@@ -1,19 +1,19 @@
 {
-  "name": "domaci_cypress",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "cypress": "./node_modules/.bin/cypress open"
-  },
-  "author": "",
-  "license": "ISC",
-  "devDependencies": {
-    "@faker-js/faker": "^7.6.0",
-    "cypress": "^12.5.1",
-    "prettier": "2.8.4"
-  },
-  "dependencies": {
-    "eslint": "^8.34.0"
-  }
+    "name": "domaci_cypress",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+        "cypress": ".\\node_modules\\.bin\\cypress open"
+    },
+    "author": "",
+    "license": "ISC",
+    "devDependencies": {
+        "@faker-js/faker": "^7.6.0",
+        "cypress": "^12.5.1",
+        "prettier": "2.8.4"
+    },
+    "dependencies": {
+        "eslint": "^8.34.0"
+    }
 }

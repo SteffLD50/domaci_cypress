@@ -1,10 +1,9 @@
-/// reference types="Cypress" />
+/// <reference types="Cypress" />
 
 import { loginPage } from "../page_objects/loginPage";
+import { allGalleriesPage } from "../page_objects/allGalleries";
 import { createGalleryPage } from "../page_objects/createGalleryPage";
 import { faker } from "@faker-js/faker";
-import { navBar } from "../page_objects/navBar";
-import { allGalleriesPage } from "../page_objects/allGalleries";
 
 const galleryInputs = {
     randomTitle: faker.music.songName(),
@@ -20,61 +19,79 @@ const credentials = {
 };
 
 describe("Create Gallery tests", () => {
-    beforeEach("Log in and go to the 'Create Gallery' page", () => {
-        cy.visit("/login");
-        loginPage.login(credentials.email, credentials.password);
-        cy.url().should("not.include", "/login");
-        navBar.createGalleryLink.click();
+    beforeEach(() => {
+        cy.session(
+            "Log in",
+            () => {
+                cy.visit("/login");
+                loginPage.login(credentials.email, credentials.password);
+                cy.url().should("not.include", "/login");
+                //    cy.document().its("cookie").should("contain", "_TCC");
+                // ne kontam zasto ovo ne radi
+                // u uputstvu sam gledao da se time proverava da li postoji token u cookies...
+                // doduse, ja nisam nasao da pise token, bilo je ponudjeno 6-7, pa sam izabrao samo ovaj jedan "_TCC"
+            },
+            {
+                cacheAcrossSpecs: true,
+                // ako ovo napisem, to znaci da ce cookies iz ovog sesion-a biti sacuvani za sve test suite u ovom projektu?
+            }
+        );
+        // ove 2 asertacije su namerno van "session" jer je ipak pre izvrsavanja svakog testa
+        // potrebno malo vremena, odnosno da dobijemo na vremenu da bi se ucitao test
+        // jel treba tako? jesam li dobro razumeo ono sto si pricao na casu?
+        // ili to radimo samo u slucaju kada iskrsne problem?
+        cy.visit("/create");
         createGalleryPage.createGalleryHeading
             .should("be.visible")
             .and("have.text", "Create Gallery");
     });
 
-    // vidim da ne mogu da izostavim argument u funkciji "createGallery()"
-    // jel ok ovo sto radim ispod, ili ima bolji nacin?
+    // sredio sam funkciju, jel sad dobro?
+    // ili imas jos nesto da me posavetujes?
     it("Try to create a gallery without title", () => {
         createGalleryPage.createGallery(
-            galleryInputs.randomTitle,
+            undefined,
             galleryInputs.randomDescription,
             galleryInputs.randomImageUrl1,
             galleryInputs.randomImageUrl2,
             galleryInputs.randomImageUrl3
         );
-        createGalleryPage.titleInput.clear();
-        createGalleryPage.clickSubmitBtn();
+        createGalleryPage.createGalleryHeading
+            .should("be.visible")
+            .and("exist")
+            .and("have.text", "Create Gallery");
         cy.url().should("contain", "/create");
-        cy.contains("Add image");
+        cy.get("input").should("have.length", 5);
     });
 
     it("Try to create a gallery without description", () => {
         createGalleryPage.createGallery(
             galleryInputs.randomTitle,
-            galleryInputs.randomDescription,
+            undefined,
             galleryInputs.randomImageUrl1,
             galleryInputs.randomImageUrl2,
             galleryInputs.randomImageUrl3
         );
-        createGalleryPage.descriptionInput.clear();
-        cy.get("input:invalid").should("have.length", 0);
-        createGalleryPage.clickSubmitBtn();
+        allGalleriesPage.allGalleriesHeading
+            .should("be.visible")
+            .and("exist")
+            .and("have.text", "All Galleries");
         cy.url().should("not.contain", "/create");
         cy.get("input").should("have.length", 1);
-        cy.get("div[class='cell']").should("have.length", 10);
     });
 
     it("Try to create a gallery without image", () => {
         createGalleryPage.createGallery(
             galleryInputs.randomTitle,
             galleryInputs.randomDescription,
-            galleryInputs.randomImageUrl1,
-            galleryInputs.randomImageUrl2,
-            galleryInputs.randomImageUrl3
+            undefined
         );
-        createGalleryPage.deleteImageBtn1.click().click();
-        createGalleryPage.imageUrl1Input.clear();
-        createGalleryPage.clickSubmitBtn();
+        createGalleryPage.createGalleryHeading
+            .should("be.visible")
+            .and("exist")
+            .and("have.text", "Create Gallery");
         cy.url().should("contain", "/create");
-        cy.contains("Add image");
+        cy.get("input").should("have.length", 3);
     });
 
     it("Create a valid new gallery", () => {
@@ -85,6 +102,11 @@ describe("Create Gallery tests", () => {
             galleryInputs.randomImageUrl2,
             galleryInputs.randomImageUrl3
         );
-        createGalleryPage.clickSubmitBtn();
+        allGalleriesPage.allGalleriesHeading
+            .should("be.visible")
+            .and("exist")
+            .and("have.text", "All Galleries");
+        cy.url().should("not.contain", "/create");
+        cy.get("input").should("have.length", 1);
     });
 });

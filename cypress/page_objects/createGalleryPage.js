@@ -15,68 +15,60 @@ class CreateGalleryPage {
         return cy.get("button").eq(-3);
     }
 
-    get createGalleryUpBtn() {
-        return this.imageUrlInput.find("button").first();
+    get imageUrlInput1() {
+        return cy.get(".input-group").eq(0);
     }
 
-    get createGalleryDownBtn() {
-        return this.imageUrlInput.find("button").last();
+    get imageUrlInput2() {
+        return cy.get(".input-group").eq(1);
+    }
+
+    get imageUrlInput3() {
+        return cy.get(".input-group").eq(2);
     }
 
     get deleteImageBtn1() {
-        return cy.get("button[class='input-buttons']").eq(0);
+        return this.imageUrlInput1.find("button").first();
     }
 
     get shiftUpImageBtn1() {
-        return cy.get("button[class='input-buttons']").eq(1);
+        return this.imageUrlInput1.find("button").eq(-2);
     }
 
     get shiftDownImageBtn1() {
-        return cy.get("button[class='input-buttons']").eq(2);
+        return this.imageUrlInput1.find("button").last();
     }
 
     get deleteImageBtn2() {
-        return cy.get("button[class='input-buttons']").eq(3);
+        return this.imageUrlInput2.find("button").first();
     }
 
     get shiftUpImageBtn2() {
-        return cy.get("button[class='input-buttons']").eq(4);
+        return this.imageUrlInput2.find("button").eq(-2);
     }
 
     get shiftDownImageBtn2() {
-        return cy.get("button[class='input-buttons']").eq(5);
+        return this.imageUrlInput2.find("button").last();
     }
 
     get deleteImageBtn3() {
-        return cy.get("button[class='input-buttons']").eq(6);
+        return this.imageUrlInput3.find("button").first();
     }
 
     get shiftUpImageBtn3() {
-        return cy.get("button[class='input-buttons']").eq(7);
+        return this.imageUrlInput3.find("button").eq(-2);
     }
 
     get shiftDownImageBtn3() {
-        return cy.get("button[class='input-buttons']").eq(8);
-    }
-
-    get imageUrl1Input() {
-        return cy.get("input[type='url']").eq(0);
-    }
-
-    get imageUrl2Input() {
-        return cy.get("input[type='url']").eq(1);
-    }
-
-    get imageUrl3Input() {
-        return cy.get("input[type='url']").eq(2);
+        return this.imageUrlInput3.find("button").last();
     }
 
     get submitBtn() {
-        return cy.get("button").eq(-1);
+        return cy.get("button").eq(-2);
     }
 
     get cancelBtn() {
-        return cy.get("button[type='submit']").eq(1);
+        return cy.get("button").eq(-1);
     }
 
     clickAddImageBtn() {
@@ -126,14 +118,43 @@ class CreateGalleryPage {
     clickCancelBtn() {
         this.cancelBtn.click();
     }
+    // nisi mi odgovorio u vezi settera, rekao sam ti da mislim da je gubljenje vremena da se prave
+    // i samo mi zauzimaju mesto u kodu, pa mi je i teze da se snadjem, moram da skrolujem...
+    // jel ih ti koristis?
+    // lakse mi je da uzmem neki getter i samo dodam .click()... a skontao sam da na setter ne funkcionise .click()
 
+    // prvenstveno sam hteo da bude "title === false", pa da ispadne kao "falsy",
+    // pa da ne moram pisati iskljucivo "undefined"
+    // nego da moze sve od ovoga: false, 0, "", null, undefined and NaN
+    // nije mi radilo, pa sam uradio ovako
     createGallery(title, description, imageUrl1, imageUrl2, imageUrl3) {
-        this.titleInput.type(title);
-        this.descriptionInput.type(description);
-        this.addImageBtn.click().click();
-        this.imageUrl1Input.type(imageUrl1);
-        this.imageUrl2Input.type(imageUrl2);
-        this.imageUrl3Input.type(imageUrl3);
+        if (title === undefined) {
+            this.descriptionInput.type(description);
+            this.addImageBtn.click().click();
+            this.imageUrlInput1.type(imageUrl1);
+            this.imageUrlInput2.type(imageUrl2);
+            this.imageUrlInput3.type(imageUrl3);
+            this.clickSubmitBtn();
+        } else if (description === undefined) {
+            this.titleInput.type(title);
+            this.addImageBtn.click().click();
+            this.imageUrlInput1.type(imageUrl1);
+            this.imageUrlInput2.type(imageUrl2);
+            this.imageUrlInput3.type(imageUrl3);
+            this.clickSubmitBtn();
+        } else if (imageUrl1 === undefined) {
+            this.titleInput.type(title);
+            this.descriptionInput.type(description);
+            this.clickSubmitBtn();
+        } else {
+            this.titleInput.type(title);
+            this.descriptionInput.type(description);
+            this.addImageBtn.click().click();
+            this.imageUrlInput1.type(imageUrl1);
+            this.imageUrlInput2.type(imageUrl2);
+            this.imageUrlInput3.type(imageUrl3);
+            this.clickSubmitBtn();
+        }
     }
 }
 
