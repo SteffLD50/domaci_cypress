@@ -123,26 +123,22 @@ class CreateGalleryPage {
     // jel ih ti koristis?
     // lakse mi je da uzmem neki getter i samo dodam .click()... a skontao sam da na setter ne funkcionise .click()
 
-    // prvenstveno sam hteo da bude "title === false", pa da ispadne kao "falsy",
-    // pa da ne moram pisati iskljucivo "undefined"
-    // nego da moze sve od ovoga: false, 0, "", null, undefined and NaN
-    // nije mi radilo, pa sam uradio ovako
     createGallery(title, description, imageUrl1, imageUrl2, imageUrl3) {
-        if (title === undefined) {
+        if (!title) {
             this.descriptionInput.type(description);
             this.addImageBtn.click().click();
             this.imageUrlInput1.type(imageUrl1);
             this.imageUrlInput2.type(imageUrl2);
             this.imageUrlInput3.type(imageUrl3);
             this.clickSubmitBtn();
-        } else if (description === undefined) {
+        } else if (!description) {
             this.titleInput.type(title);
             this.addImageBtn.click().click();
             this.imageUrlInput1.type(imageUrl1);
             this.imageUrlInput2.type(imageUrl2);
             this.imageUrlInput3.type(imageUrl3);
             this.clickSubmitBtn();
-        } else if (imageUrl1 === undefined) {
+        } else if (!imageUrl1) {
             this.titleInput.type(title);
             this.descriptionInput.type(description);
             this.clickSubmitBtn();

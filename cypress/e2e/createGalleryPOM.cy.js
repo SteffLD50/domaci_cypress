@@ -50,7 +50,7 @@ describe("Create Gallery tests", () => {
     // ili imas jos nesto da me posavetujes?
     it("Try to create a gallery without title", () => {
         createGalleryPage.createGallery(
-            undefined,
+            "",
             galleryInputs.randomDescription,
             galleryInputs.randomImageUrl1,
             galleryInputs.randomImageUrl2,
@@ -67,7 +67,7 @@ describe("Create Gallery tests", () => {
     it("Try to create a gallery without description", () => {
         createGalleryPage.createGallery(
             galleryInputs.randomTitle,
-            undefined,
+            "",
             galleryInputs.randomImageUrl1,
             galleryInputs.randomImageUrl2,
             galleryInputs.randomImageUrl3
@@ -84,7 +84,7 @@ describe("Create Gallery tests", () => {
         createGalleryPage.createGallery(
             galleryInputs.randomTitle,
             galleryInputs.randomDescription,
-            undefined
+            ""
         );
         createGalleryPage.createGalleryHeading
             .should("be.visible")
