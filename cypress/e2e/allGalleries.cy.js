@@ -50,9 +50,50 @@ describe("All Galleries page test", () => {
 
     it("Click on gallery title redirects to single gallery page", () => {
         allGalleriesPage.singleGallery.find("a").first().click();
+        cy.get("textarea").should("be.visible");
+        cy.get("h5").first().should("include.text", "created by:");
+        cy.go("back");
+        allGalleriesPage.singleGallery
+            .find("a")
+            .first()
+            .then(($title) => {
+                const text = $title.text().trim();
+                allGalleriesPage.singleGallery.find("a").first().click();
+                cy.get("h1").should(($title2) => {
+                    expect($title2.text()).to.eq(text);
+                });
+            });
     });
-
+    // radio sam proveru title-a, jel je to bespotrebno?
+    // jel se takve stvari proveravaju u cypressu?
     it("Click on gallery author redirects to the authors gallery page", () => {
-        allGalleriesPage.singleGallery.find("a").first().click();
+        allGalleriesPage.singleGallery.find("a").eq(1).click();
+        cy.get("h1").should("include.text", "Galleries of");
+        cy.get("textarea").should("not.exist");
+        cy.go("back");
+        allGalleriesPage.singleGallery
+            .find("a")
+            .eq(1)
+            .then(($title) => {
+                const text = $title.text().trim();
+                allGalleriesPage.singleGallery.find("a").eq(1).click();
+                cy.get("h1").should(($title2) => {
+                    expect($title2.text().replace("  ", " ")).to.eq(
+                        `Galleries of ${text}`
+                    );
+                    // morao sam da koristim .replace("  ", " ") jer je iz nekog razloga izmedju imena i prezimena bilo 2 razmaka
+                });
+            });
+        cy.go("back");
+        allGalleriesPage.singleGallery
+            .find("a")
+            .eq(1)
+            .then(($link) => {
+                const link = $link.prop("href");
+                allGalleriesPage.singleGallery.find("a").eq(1).click();
+                cy.url().should(($link2) => {
+                    expect($link2).to.eq(link);
+                });
+            });
     });
 });

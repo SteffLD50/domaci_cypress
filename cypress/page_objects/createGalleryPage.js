@@ -122,7 +122,8 @@ class CreateGalleryPage {
     // i samo mi zauzimaju mesto u kodu, pa mi je i teze da se snadjem, moram da skrolujem...
     // jel ih ti koristis?
     // lakse mi je da uzmem neki getter i samo dodam .click()... a skontao sam da na setter ne funkcionise .click()
-
+    // jel inace praksa da se za svaku stranicu prave svi seteri, kao sto ja imam ovde?
+    // ili se to pravi po zelji?
     createGallery(title, description, imageUrl1, imageUrl2, imageUrl3) {
         if (!title) {
             this.descriptionInput.type(description);
