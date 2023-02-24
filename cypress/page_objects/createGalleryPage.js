@@ -15,6 +15,10 @@ class CreateGalleryPage {
         return cy.get("button").eq(-3);
     }
 
+    get allInputs() {
+        return cy.get("input");
+    }
+
     get imageUrlInput1() {
         return cy.get("input").eq(2);
     }
