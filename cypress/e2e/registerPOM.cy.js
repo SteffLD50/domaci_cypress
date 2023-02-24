@@ -15,19 +15,21 @@ describe("Register test", () => {
         invalidEmail: "testmail.com",
     };
 
-    before("visit app and click on the register link", () => {
+    before("Visit app and click on the register link", () => {
         cy.visit("/");
         navBar.registerLink.click();
         cy.url().should("contain", "/register");
     });
 
-    it("register with valid data", () => {
-        registerPage.registerWithValidData(
+    it("Register with valid data", () => {
+        cy.registerViaBackend(
             userData.firstName,
             userData.lastName,
             userData.email,
             userData.password
         );
         cy.url().should("not.contain", "/register");
+        cy.visit("/login");
+        loginPage.login(userData.email, userData.password);
     });
 });

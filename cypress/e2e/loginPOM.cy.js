@@ -32,7 +32,15 @@ describe("Login tests", () => {
     });
 
     it("Login with valid credentials", () => {
+        cy.intercept({
+            method: "POST",
+            url: `${Cypress.env("apiUrl")}/auth/login`,
+        }).as("successfullLogin");
         loginPage.login(credentials.validEmail, credentials.validPassword);
+        cy.wait("@successfullLogin").then((interception) => {
+            console.log("INTERCEPTION", interception);
+            expect(interception.response.statusCode).eq(200);
+        });
         cy.url().should("not.include", "/login");
     });
 });

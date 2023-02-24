@@ -39,3 +39,21 @@ Cypress.Commands.add("loginThroughBackend", () => {
             window.localStorage.setItem("token", response.access_token);
         });
 });
+
+Cypress.Commands.add(
+    "registerViaBackend",
+    (firstName, lastName, email, password) => {
+        cy.request({
+            method: "POST",
+            url: `${Cypress.env("apiUrl")}/auth/register`,
+            body: {
+                first_name: firstName,
+                last_name: lastName,
+                email: email,
+                password: password,
+                password_confirmation: password,
+                terms_and_conditions: true,
+            },
+        });
+    }
+);
