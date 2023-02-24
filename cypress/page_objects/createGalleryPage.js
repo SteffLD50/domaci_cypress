@@ -16,15 +16,15 @@ class CreateGalleryPage {
     }
 
     get imageUrlInput1() {
-        return cy.get(".input-group").eq(0);
+        return cy.get("input").eq(2);
     }
 
     get imageUrlInput2() {
-        return cy.get(".input-group").eq(1);
+        return cy.get("input").eq(3);
     }
 
     get imageUrlInput3() {
-        return cy.get(".input-group").eq(2);
+        return cy.get("input").eq(4);
     }
 
     get deleteImageBtn1() {
@@ -118,39 +118,69 @@ class CreateGalleryPage {
     clickCancelBtn() {
         this.cancelBtn.click();
     }
-    // nisi mi odgovorio u vezi settera, rekao sam ti da mislim da je gubljenje vremena da se prave
-    // i samo mi zauzimaju mesto u kodu, pa mi je i teze da se snadjem, moram da skrolujem...
-    // jel ih ti koristis?
-    // lakse mi je da uzmem neki getter i samo dodam .click()... a skontao sam da na setter ne funkcionise .click()
-    // jel inace praksa da se za svaku stranicu prave svi seteri, kao sto ja imam ovde?
-    // ili se to pravi po zelji?
+
+    // createGallery(title, description, imageUrl1, imageUrl2, imageUrl3) {
+    //     if (!title) {
+    //         this.descriptionInput.type(description);
+    //         this.addImageBtn.click().click();
+    //         this.imageUrlInput1.type(imageUrl1);
+    //         this.imageUrlInput2.type(imageUrl2);
+    //         this.imageUrlInput3.type(imageUrl3);
+    //         this.clickSubmitBtn();
+    //     } else if (!description) {
+    //         this.titleInput.type(title);
+    //         this.addImageBtn.click().click();
+    //         this.imageUrlInput1.type(imageUrl1);
+    //         this.imageUrlInput2.type(imageUrl2);
+    //         this.imageUrlInput3.type(imageUrl3);
+    //         this.clickSubmitBtn();
+    //     } else if (!imageUrl1) {
+    //         this.titleInput.type(title);
+    //         this.descriptionInput.type(description);
+    //         this.clickSubmitBtn();
+    //     } else {
+    //         this.titleInput.type(title);
+    //         this.descriptionInput.type(description);
+    //         this.addImageBtn.click().click();
+    //         this.imageUrlInput1.type(imageUrl1);
+    //         this.imageUrlInput2.type(imageUrl2);
+    //         this.imageUrlInput3.type(imageUrl3);
+    //         this.clickSubmitBtn();
+    //     }
+    // }
+
     createGallery(title, description, imageUrl1, imageUrl2, imageUrl3) {
-        if (!title) {
-            this.descriptionInput.type(description);
-            this.addImageBtn.click().click();
-            this.imageUrlInput1.type(imageUrl1);
-            this.imageUrlInput2.type(imageUrl2);
-            this.imageUrlInput3.type(imageUrl3);
-            this.clickSubmitBtn();
-        } else if (!description) {
-            this.titleInput.type(title);
-            this.addImageBtn.click().click();
-            this.imageUrlInput1.type(imageUrl1);
-            this.imageUrlInput2.type(imageUrl2);
-            this.imageUrlInput3.type(imageUrl3);
-            this.clickSubmitBtn();
-        } else if (!imageUrl1) {
-            this.titleInput.type(title);
-            this.descriptionInput.type(description);
-            this.clickSubmitBtn();
-        } else {
-            this.titleInput.type(title);
-            this.descriptionInput.type(description);
-            this.addImageBtn.click().click();
-            this.imageUrlInput1.type(imageUrl1);
-            this.imageUrlInput2.type(imageUrl2);
-            this.imageUrlInput3.type(imageUrl3);
-            this.clickSubmitBtn();
+        switch (true) {
+            case !title:
+                this.descriptionInput.type(description);
+                this.addImageBtn.click().click();
+                this.imageUrlInput1.type(imageUrl1);
+                this.imageUrlInput2.type(imageUrl2);
+                this.imageUrlInput3.type(imageUrl3);
+                this.clickSubmitBtn();
+                break;
+            case !description:
+                this.titleInput.type(title);
+                this.addImageBtn.click().click();
+                this.imageUrlInput1.type(imageUrl1);
+                this.imageUrlInput2.type(imageUrl2);
+                this.imageUrlInput3.type(imageUrl3);
+                this.clickSubmitBtn();
+                break;
+            case !imageUrl1:
+                this.titleInput.type(title);
+                this.descriptionInput.type(description);
+                this.clickSubmitBtn();
+                break;
+            default:
+                this.titleInput.type(title);
+                this.descriptionInput.type(description);
+                this.addImageBtn.click().click();
+                this.imageUrlInput1.type(imageUrl1);
+                this.imageUrlInput2.type(imageUrl2);
+                this.imageUrlInput3.type(imageUrl3);
+                this.clickSubmitBtn();
+                break;
         }
     }
 }
