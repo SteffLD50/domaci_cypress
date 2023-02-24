@@ -35,6 +35,7 @@ Cypress.Commands.add("loginThroughBackend", () => {
     })
         .its("body")
         .then((response) => {
+            window.localStorage.setItem("user_id", response.user_id);
             window.localStorage.setItem("token", response.access_token);
         });
 });

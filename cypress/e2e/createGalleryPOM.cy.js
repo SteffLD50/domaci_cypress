@@ -1,5 +1,6 @@
 /// <reference types="Cypress" />
 
+import { navBar } from "../page_objects/navBar";
 import { loginPage } from "../page_objects/loginPage";
 import { allGalleriesPage } from "../page_objects/allGalleries";
 import { createGalleryPage } from "../page_objects/createGalleryPage";
@@ -51,11 +52,12 @@ describe("Create Gallery tests", () => {
     });
 
     beforeEach(() => {
-        cy.session("Log in", () => {
-            cy.visit("/login");
-            loginPage.login(credentials.email, credentials.password);
-            cy.url().should("not.include", "/login");
-        }); // namerno sam ostavio session jer hocu da ga imam kao primer
+        // cy.session("Log in", () => {
+        //     cy.visit("/login");
+        //     loginPage.login(credentials.email, credentials.password);
+        //     cy.url().should("not.include", "/login");
+        // });
+        cy.loginThroughBackend();
         cy.visit("/create");
     });
 
@@ -72,6 +74,11 @@ describe("Create Gallery tests", () => {
     });
 
     it("Try to create a gallery without description", () => {
+        cy.intercept(
+            "POST",
+            "https://gallery-api.vivifyideas.com/api/galleries",
+            () => {}
+        ).as("createValidGallery");
         createGalleryPage.createGallery(
             galleryInputs.randomTitle,
             "",
@@ -85,6 +92,9 @@ describe("Create Gallery tests", () => {
             .and("have.text", "All Galleries");
         cy.url().should("not.contain", "/create");
         allGalleriesPage.filterInput.should("be.visible").and("exist");
+        cy.wait("@createValidGallery").then((request) => {
+            expect(request.response.statusCode).to.eql(201);
+        });
     });
 
     it("Try to create a gallery without image", () => {
@@ -102,6 +112,11 @@ describe("Create Gallery tests", () => {
     });
 
     it("Create a valid new gallery", () => {
+        cy.intercept(
+            "POST",
+            "https://gallery-api.vivifyideas.com/api/galleries",
+            () => {}
+        ).as("createValidGallery");
         createGalleryPage.createGallery(
             galleryInputs.randomTitle,
             galleryInputs.randomDescription,
@@ -115,5 +130,28 @@ describe("Create Gallery tests", () => {
             .and("have.text", "All Galleries");
         cy.url().should("not.contain", "/create");
         allGalleriesPage.filterInput.should("be.visible").and("exist");
+        cy.wait("@createValidGallery").then((request) => {
+            expect(request.response.statusCode).to.eql(201);
+        });
+    });
+
+    it("Delete gallery", () => {
+        cy.intercept(
+            "DELETE",
+            "https://gallery-api.vivifyideas.com/api/galleries/**",
+            () => {}
+        ).as("deleteGallery");
+        navBar.myGalleriesLink.click();
+        cy.get("h1").should("have.text", "My Galleries");
+        cy.get(".grid").find("a").eq(0).click();
+        cy.get(".carousel-caption").should("exist").and("be.visible");
+        cy.get("button").first().click();
+        // cy.on("window:confirm", () => {
+        //     return true;
+        // });
+        // ova funkcija mi je nepotrebna jer je on sam odradio confirm nakon pritiska na Delete, nije mi jasno zasto?
+        cy.wait("@deleteGallery").then((request) => {
+            expect(request.response.statusCode).to.eql(200);
+        });
     });
 });
