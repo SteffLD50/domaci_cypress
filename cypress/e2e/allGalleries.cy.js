@@ -1,18 +1,11 @@
 /// <reference types="Cypress" />
 
 import { allGalleriesPage } from "../page_objects/allGalleries";
-import { loginPage } from "../page_objects/loginPage";
-
-const credentials = {
-    email: "nadjlukac.test@gmail.com",
-    password: "testqa22test",
-};
 
 describe("All Galleries page test", () => {
-    beforeEach("Visit app and login", () => {
-        cy.visit("/login");
-        loginPage.login(credentials.email, credentials.password);
-        cy.url().should("not.include", "/login");
+    beforeEach("Visit All Galleries page", () => {
+        cy.loginThroughBackend();
+        cy.visit("/");
     });
 
     it("Loads page successfully", () => {

@@ -19,48 +19,43 @@ const credentials = {
 };
 
 describe("Create Gallery tests", () => {
-    beforeEach(() => {
-        cy.session(
-            "Log in",
-            () => {
-                cy.visit("/login");
-                loginPage.login(credentials.email, credentials.password);
-                cy.url().should("not.include", "/login");
-                cy.visit("/create");
-                createGalleryPage.createGalleryHeading
-                    .should("be.visible")
-                    .and("exist")
-                    .and("have.text", "Create Gallery")
-                    .and("have.class", "title-style")
-                    .and("have.css", "text-transform", "uppercase")
-                    .and(
-                        "have.css",
-                        "font-family",
-                        "Avenir, Helvetica, Arial, sans-serif"
-                    )
-                    .and("have.css", "color", "rgb(72, 73, 75)");
-                cy.url().should("contain", "/create");
-                cy.get("form").find("input").should("have.length", 3);
-                createGalleryPage.titleInput
-                    .invoke("prop", "validationMessage")
-                    .should("equal", "Please fill out this field.");
-                createGalleryPage.descriptionInput.should(
-                    "not.have.attr",
-                    "required"
-                );
-                createGalleryPage.imageUrlInput1
-                    .invoke("prop", "validationMessage")
-                    .should("equal", "Please fill out this field.");
-                createGalleryPage.submitBtn.should(
-                    "have.css",
-                    "background-color",
-                    "rgb(72, 73, 75)"
-                );
-            },
-            {
-                cacheAcrossSpecs: true,
-            }
+    before(() => {
+        cy.loginThroughBackend();
+        cy.visit("/create");
+        createGalleryPage.createGalleryHeading
+            .should("be.visible")
+            .and("exist")
+            .and("have.text", "Create Gallery")
+            .and("have.class", "title-style")
+            .and("have.css", "text-transform", "uppercase")
+            .and(
+                "have.css",
+                "font-family",
+                "Avenir, Helvetica, Arial, sans-serif"
+            )
+            .and("have.css", "color", "rgb(72, 73, 75)");
+        cy.url().should("contain", "/create");
+        cy.get("form").find("input").should("have.length", 3);
+        createGalleryPage.titleInput
+            .invoke("prop", "validationMessage")
+            .should("equal", "Please fill out this field.");
+        createGalleryPage.descriptionInput.should("not.have.attr", "required");
+        createGalleryPage.imageUrlInput1
+            .invoke("prop", "validationMessage")
+            .should("equal", "Please fill out this field.");
+        createGalleryPage.submitBtn.should(
+            "have.css",
+            "background-color",
+            "rgb(72, 73, 75)"
         );
+    });
+
+    beforeEach(() => {
+        cy.session("Log in", () => {
+            cy.visit("/login");
+            loginPage.login(credentials.email, credentials.password);
+            cy.url().should("not.include", "/login");
+        }); // namerno sam ostavio session jer hocu da ga imam kao primer
         cy.visit("/create");
     });
 

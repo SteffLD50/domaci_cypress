@@ -7,5 +7,9 @@ module.exports = defineConfig({
         },
         experimentalSessionAndOrigin: true,
         baseUrl: "https://gallery-app.vivifyideas.com/",
+        env: {
+            validEmail: "nadjlukac.test@gmail.com",
+            validPassword: "testqa22test",
+        },
     },
 });

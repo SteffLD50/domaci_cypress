@@ -12,7 +12,7 @@ const credentials = {
 };
 
 describe("Login tests", () => {
-    beforeEach("visit app and click the login link", () => {
+    beforeEach("Visit app and click on the login link", () => {
         cy.visit("/");
         navBar.loginLink.click();
         cy.url().should("include", "/login");
