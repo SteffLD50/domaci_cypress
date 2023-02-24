@@ -184,7 +184,6 @@ class CreateGalleryPage {
                 this.imageUrlInput2.type(imageUrl2);
                 this.imageUrlInput3.type(imageUrl3);
                 this.clickSubmitBtn();
-                break;
         }
     }
 }

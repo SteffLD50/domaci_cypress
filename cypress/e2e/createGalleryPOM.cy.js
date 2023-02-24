@@ -74,11 +74,9 @@ describe("Create Gallery tests", () => {
     });
 
     it("Try to create a gallery without description", () => {
-        cy.intercept(
-            "POST",
-            "https://gallery-api.vivifyideas.com/api/galleries",
-            () => {}
-        ).as("createValidGallery");
+        cy.intercept("POST", `${Cypress.env("apiUrl")}/galleries`).as(
+            "createValidGallery"
+        );
         createGalleryPage.createGallery(
             galleryInputs.randomTitle,
             "",
@@ -112,11 +110,9 @@ describe("Create Gallery tests", () => {
     });
 
     it("Create a valid new gallery", () => {
-        cy.intercept(
-            "POST",
-            "https://gallery-api.vivifyideas.com/api/galleries",
-            () => {}
-        ).as("createValidGallery");
+        cy.intercept("POST", `${Cypress.env("apiUrl")}/galleries`).as(
+            "createValidGallery"
+        );
         createGalleryPage.createGallery(
             galleryInputs.randomTitle,
             galleryInputs.randomDescription,
@@ -136,11 +132,9 @@ describe("Create Gallery tests", () => {
     });
 
     it("Delete gallery", () => {
-        cy.intercept(
-            "DELETE",
-            "https://gallery-api.vivifyideas.com/api/galleries/**",
-            () => {}
-        ).as("deleteGallery");
+        cy.intercept("DELETE", `${Cypress.env("apiUrl")}/galleries/**`).as(
+            "deleteGallery"
+        );
         navBar.myGalleriesLink.click();
         cy.get("h1").should("have.text", "My Galleries");
         cy.get(".grid").find("a").eq(0).click();
@@ -149,7 +143,6 @@ describe("Create Gallery tests", () => {
         // cy.on("window:confirm", () => {
         //     return true;
         // });
-        // ova funkcija mi je nepotrebna jer je on sam odradio confirm nakon pritiska na Delete, nije mi jasno zasto?
         cy.wait("@deleteGallery").then((request) => {
             expect(request.response.statusCode).to.eql(200);
         });

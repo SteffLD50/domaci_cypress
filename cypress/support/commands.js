@@ -27,7 +27,7 @@
 Cypress.Commands.add("loginThroughBackend", () => {
     cy.request({
         method: "POST",
-        url: "https://gallery-api.vivifyideas.com/api/auth/login",
+        url: `${Cypress.env("apiUrl")}/auth/login`,
         body: {
             email: Cypress.env("validEmail"),
             password: Cypress.env("validPassword"),
