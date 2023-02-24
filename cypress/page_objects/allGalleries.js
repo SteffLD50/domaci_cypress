@@ -23,13 +23,8 @@ class AllGalleriesPage {
         return this.singleGallery.find("h2");
     }
 
-    get allGalleries() {
+    get allGalleriesGrid() {
         return cy.get(".grid").children();
-    }
-
-    search(searchTerm) {
-        this.filterInput.type(searchTerm);
-        this.filterBtn.click();
     }
 
     get galleryTitle() {
@@ -42,6 +37,11 @@ class AllGalleriesPage {
         return getGalleryAuthor((index) =>
             cy.get("a[class='box-title']").eq(index)
         );
+    }
+
+    search(searchTerm) {
+        this.filterInput.type(searchTerm);
+        this.filterBtn.click();
     }
 }
 

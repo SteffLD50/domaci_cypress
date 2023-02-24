@@ -15,33 +15,31 @@ describe("All Galleries page test", () => {
         cy.url().should("not.include", "/login");
     });
 
-    // it("Loads page successfully", () => {
-    //     cy.get(".cell").should("have.length", 10);
-    //     allGalleriesPage.allGalleriesHeading
-    //         .should("be.visible")
-    //         .and("exist")
-    //         .and("have.text", "All Galleries");
+    it("Loads page successfully", () => {
+        allGalleriesPage.allGalleriesHeading
+            .should("be.visible")
+            .and("exist")
+            .and("have.text", "All Galleries");
+        allGalleriesPage.allGalleriesGrid
+            .should("be.visible")
+            .and("have.length", 10);
+        allGalleriesPage.singleGallery.find("img").should("be.visible");
+    });
 
-    //     allGalleriesPage.allGalleries
-    //         .should("be.visible")
-    //         .and("have.length", 10);
-
-    //     allGalleriesPage.singleGallery.find("img").should("be.visible");
-    // });
     it("Test pagination", () => {
-        allGalleriesPage.allGalleries
+        allGalleriesPage.allGalleriesGrid
             .should("be.visible")
             .and("have.length", 10);
         allGalleriesPage.loadMoreBtn.click();
-        allGalleriesPage.allGalleries
+        allGalleriesPage.allGalleriesGrid
             .should("be.visible")
             .and("have.length", 20);
     });
 
-    it("Test search", () => {
+    it("Test search gallery", () => {
         let searchTerm = "Gallery with 2 images";
         allGalleriesPage.search(searchTerm);
-        allGalleriesPage.allGalleries
+        allGalleriesPage.allGalleriesGrid
             .should("be.visible")
             .and("have.length", 6);
         allGalleriesPage.singleGallery.find("a").first().click();
@@ -51,21 +49,21 @@ describe("All Galleries page test", () => {
     it("Click on gallery title redirects to single gallery page", () => {
         allGalleriesPage.singleGallery.find("a").first().click();
         cy.get("textarea").should("be.visible");
-        cy.get("h5").first().should("include.text", "created by:");
+        cy.get(".carousel-caption").should("exist");
         cy.go("back");
         allGalleriesPage.singleGallery
             .find("a")
             .first()
+            .invoke("text")
             .then(($title) => {
-                const text = $title.text().trim();
+                const text = $title.trim();
                 allGalleriesPage.singleGallery.find("a").first().click();
                 cy.get("h1").should(($title2) => {
                     expect($title2.text()).to.eq(text);
-                });
+                }); // Da li je text imena galerije = naslov na stranici galerije
             });
     });
-    // radio sam proveru title-a, jel je to bespotrebno?
-    // jel se takve stvari proveravaju u cypressu?
+
     it("Click on gallery author redirects to the authors gallery page", () => {
         allGalleriesPage.singleGallery.find("a").eq(1).click();
         cy.get("h1").should("include.text", "Galleries of");
@@ -80,8 +78,7 @@ describe("All Galleries page test", () => {
                 cy.get("h1").should(($title2) => {
                     expect($title2.text().replace("  ", " ")).to.eq(
                         `Galleries of ${text}`
-                    );
-                    // morao sam da koristim .replace("  ", " ") jer je iz nekog razloga izmedju imena i prezimena bilo 2 razmaka
+                    ); // Da li je text imena autora = naslov na stranici autora
                 });
             });
         cy.go("back");
@@ -93,7 +90,7 @@ describe("All Galleries page test", () => {
                 allGalleriesPage.singleGallery.find("a").eq(1).click();
                 cy.url().should(($link2) => {
                     expect($link2).to.eq(link);
-                });
+                }); // Da li je "href" value autora = url stranice autora
             });
     });
 });
